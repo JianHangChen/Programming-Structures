@@ -1,4 +1,4 @@
-l/**********************
+/**********************
  * EE209 Assignment 1 *
  **********************/
 
@@ -27,9 +27,9 @@ l/**********************
 enum { FALSE = 0, TRUE };
 
 
-char id[MAX_REGISTRATION][MAX_NUM_ID_CHARS] ;
-char name[MAX_REGISTRATION][MAX_NUM_NAME_CHARS] ;
-int purchase[MAX_REGISTRATION][MAX_NUM_DIGITS] ;
+char id[MAX_REGISTRATION][MAX_NUM_ID_CHARS] = {0};
+char name[MAX_REGISTRATION][MAX_NUM_NAME_CHARS] = {0};
+int purchase[MAX_REGISTRATION][MAX_NUM_DIGITS] = {0};
 
 int reg_no = 0;
 
@@ -194,7 +194,7 @@ ValidateRegisterCommand(void)
         }
 
         if (c == '\n'){
-	  //printf("finish registor");
+            printf("finish registor");
             return TRUE;
         } else {
             if (c == '-'){
@@ -264,7 +264,7 @@ int verify_record_Id(){
 
     if (isspace(c)){ // check after id input, it should be a space/tab/\n
         ungetc(c, stdin);
-	// printf("id record!\n");
+        printf("id record!\n");
         return TRUE;
     } else {
         fprintf(stderr, "%s", ERR_INVALID_ARG);
@@ -370,7 +370,7 @@ int verify_record_name(){  // right after -n
 
     if (isspace(c)){ // check after name input, it should be a space/tab/\n
         ungetc(c, stdin);
-	// printf("name record!\n");
+        printf("name record!\n");
         return TRUE;
     } else {
         fprintf(stderr, "%s", ERR_INVALID_ARG);
@@ -395,7 +395,7 @@ int verify_record_purchase(){  // right after -p
         if ( c == '0' ){ // if the first digit is 0
             if ( isspace(c = getValid_c())){ // check second digit, if it finish
                 ungetc(c,stdin);
-                //printf("purchase record!\n");
+                printf("purchase record!\n");
                 return TRUE;
             }
             fprintf(stderr, "%s", ERR_INVALID_ARG);
@@ -433,7 +433,7 @@ int verify_record_purchase(){  // right after -p
 
     if (isspace(c)){ // check after purchase input, it should be a space/tab/\n
         ungetc(c,stdin);
-	// printf("purchase record!\n");
+        printf("purchase record!\n");
         return TRUE;
     } else {
         fprintf(stderr, "%s", ERR_INVALID_ARG);
