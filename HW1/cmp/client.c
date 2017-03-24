@@ -27,11 +27,19 @@
 enum { FALSE = 0, TRUE };
 
 
-char id[MAX_REGISTRATION][MAX_NUM_ID_CHARS] = {0};
-char name[MAX_REGISTRATION][MAX_NUM_NAME_CHARS] = {0};
-int purchase[MAX_REGISTRATION][MAX_NUM_DIGITS] = {0};
+char id[MAX_REGISTRATION][MAX_NUM_ID_CHARS] = {};
+char name[MAX_REGISTRATION][MAX_NUM_NAME_CHARS] = {};
+int purchase[MAX_REGISTRATION][MAX_NUM_DIGITS] = {};
 
 int reg_no = 0;
+
+/*----------------------------------------------------------------------*/
+int verify_record_Id();
+int verify_record_name();
+int verify_record_purchase();
+int isLegalId(char c);
+int isLegalName(char c);
+int isLegalPurchase(char c);
 
 typedef enum {
     C_EXIT,       /* exit */
@@ -235,7 +243,7 @@ ValidateRegisterCommand(void)
 /* a legal id consists of alphabets, digits, hyphens('-'), */
 /* underscores('_') and periods('.').                      */
 
-int isLegalId(int c){
+int isLegalId(char c){
     if (isalpha(c) || isdigit(c) || c == '-' || c == '_' || c == '.'){
         return TRUE;
     }
@@ -458,7 +466,7 @@ int verify_record_purchase(){  // right after -p
 /*                                                         */
 /* a legal name  */
 
-int isLegalName(int c){
+int isLegalName(char c){
     if (isalpha(c) ||  c == '-' || c == '.' || c == '\''){
         return TRUE;
     }
@@ -474,7 +482,7 @@ int isLegalName(int c){
 /*                                                         */
 /* a legal purchase  */
 
-int isLegalPurchase(int c){
+int isLegalPurchase(char c){
     if (isdigit(c) ){
         return TRUE;
     }
