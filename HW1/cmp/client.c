@@ -534,7 +534,7 @@ ValidateUnregisterOrFindCommand(void)
         }
 
         if (c == '\n'){
-            printf("finish unreg or find");
+            //printf("finish unreg or find");
             return TRUE;
         } else {
             if (c == '-'){
