@@ -1,0 +1,13 @@
+reg
+unreg
+find
+reg     
+unreg  
+find 
+reg -i ID -n NAME
+reg -n NAME -p 0
+reg -p 0 -i ID
+reg -n NAME -i ID
+reg -i ID
+reg -n NAME
+reg -p 0

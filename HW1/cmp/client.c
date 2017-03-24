@@ -246,12 +246,14 @@ int verify_record_Id(){
             input_length++;
             c = getValid_c();
         }
-        if (input_length >= MAX_NUM_ID_CHARS){
-            fprintf(stderr, "%s", ERR_INVALID_ARG);
-            ungetc(c, stdin);
-            eatLine();
-            return FALSE;
-        }
+//        if (input_length >= MAX_NUM_ID_CHARS){
+//            if ( !isspace(c) ){
+//                fprintf(stderr, "%s", ERR_INVALID_ARG);
+//                ungetc(c, stdin);
+//                eatLine();
+//                return FALSE;
+//            }
+//        }
     } else { // the first character should be space, if not
 
         fprintf(stderr, "%s", ERR_UNDEF_OPT);
@@ -312,10 +314,20 @@ int verify_record_name(){  // right after -n
 
             }
             if ( input_length >= MAX_NUM_NAME_CHARS || input_length == 0){ //  exceed or no input
-                fprintf(stderr, "%s", ERR_INVALID_ARG);
-                ungetc(c, stdin);
-                eatLine();
-                return FALSE;
+                if (input_length == 0){
+                    fprintf(stderr, "%s", ERR_INVALID_ARG);
+                    ungetc(c, stdin);
+                    eatLine();
+                    return FALSE;
+                }
+                if ( c != '\''){
+                    fprintf(stderr, "%s", ERR_INVALID_ARG);
+                    ungetc(c, stdin);
+                    eatLine();
+                    return FALSE;
+                } else{
+                    c = getValid_c();
+                }
             } else {  // if not exceed
                 if (c == '\''){
                     c = getValid_c(); // while the character is ', great
@@ -421,12 +433,12 @@ int verify_record_purchase(){  // right after -p
         return FALSE;
     }
 
-    if (input_length >= MAX_NUM_DIGITS){
-        fprintf(stderr, "%s", ERR_INVALID_ARG);
-        ungetc(c,stdin);
-        eatLine();
-        return FALSE;
-    }
+//    if (input_length >= MAX_NUM_DIGITS){
+//        fprintf(stderr, "%s", ERR_INVALID_ARG);
+//        ungetc(c,stdin);
+//        eatLine();
+//        return FALSE;
+//    }
 
 
 

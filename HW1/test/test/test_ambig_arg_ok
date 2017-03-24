@@ -1,0 +1,6 @@
+unreg -i ID -n NAME
+unreg -n NAME -i ID
+unreg -i ID -n NAME -p 0
+find -i ID -n NAME -i ID
+find -n NAME -i ID
+find -i ID -n NAME -p 0

@@ -1,0 +1,16 @@
+reg -i simpleID -n NAME -p 1
+reg -i 123simple-ID -n NAME -p 1
+reg -i simple_ID123 -n NAME -p 1
+reg -i -simpleID -n NAME -p 1
+reg -i _simpleID-n- -n NAME -p 1
+reg -i simepl.ID -n NAME -p 1
+reg -i ..sim-ple...ID... -n NAME -p 1
+reg -i -i -n NAME -p 1
+reg -i -n -n NAME -p 1
+reg -i -p -n NAME -p 1
+reg -n NAME -i simpleID -p 1
+reg -n NAME -p 0 -i simpleID-i   
+reg -i   simpleID   -n NAME -p 1
+reg -n NAME   -i  simpleID   -p 1
+reg -n NAME -p 1   -i simpleID
+reg -i aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -n NAME -p 0
