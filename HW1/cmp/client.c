@@ -214,10 +214,9 @@ ValidateRegisterCommand(void)
 
 
     fprintf(stderr, "%s", ERR_UNDEF_OPT);
+    ungetc(c,stdin);
     eatLine();
     return FALSE;
-
-
 }
 
 /*---------------------------------------------------------*/
@@ -483,8 +482,87 @@ int isLegalPurchase(char c){
 static int
 ValidateUnregisterOrFindCommand(void)
 {
-    /* TODO: Implement this function. */
+
+    int c;
+    int hasId = FALSE; int hasName = FALSE;
+
+    c = eatSpace();
+    if (c == '-'){ // if '-' this is a valid option, if not -, this is undefined option/need more option.
+        c = getValid_c();
+        switch (c){
+            case 'i':
+                if(verify_record_Id()){hasId = TRUE;}
+                else{return FALSE;}
+                break;
+            case 'n':
+                if(verify_record_name()){ hasName = TRUE;}
+                else {return FALSE;}
+                break;
+            default : {
+                fprintf(stderr, "%s", ERR_UNDEF_OPT);
+                ungetc(c,stdin);
+                eatLine();
+                return FALSE;
+            }
+        }
+    } else { // if this is a valid option, if not -, this is undefined option / need more option.
+        if ( c == '\n'){
+            fprintf(stderr, "%s", ERR_NEED_OPT);
+            return FALSE;
+        } else{
+            fprintf(stderr, "%s", ERR_UNDEF_OPT);
+            eatLine();
+            return FALSE;
+        }
+    }
+
+    if (hasId || hasName){
+        if (( c = getchar()) != EOF && c != '\n' && isspace(c)){
+            c = eatSpace();
+        }
+
+        if (c == '\n'){
+            printf("finish unreg or find");
+            return TRUE;
+        } else {
+            if (c == '-'){
+                c = getValid_c();
+                if( c == 'i'){
+                    if(hasId){
+                        ungetc(c,stdin);
+                        eatLine();
+                        fprintf(stderr, "%s", ERR_SAME_OPT);
+                        return FALSE;
+                    } else{
+                        ungetc(c,stdin);
+                        eatLine();
+                        fprintf(stderr, "%s", ERR_AMBIG_ARG);
+                        return FALSE;
+                    }
+                }
+                if( c == 'n'){
+                    if(hasName){
+                        ungetc(c,stdin);
+                        eatLine();
+                        fprintf(stderr, "%s", ERR_SAME_OPT);
+                        return FALSE;
+                    } else{
+                        ungetc(c,stdin);
+                        eatLine();
+                        fprintf(stderr, "%s", ERR_AMBIG_ARG);
+                        return FALSE;
+                    }
+                }
+            }
+        }
+    }
+
+
+    fprintf(stderr, "%s", ERR_UNDEF_OPT);
+    ungetc(c,stdin);
+    eatLine();
     return FALSE;
+
 }
 /*--------------------------------------------------------------------*/
 /* Read the first word, and figure out and return the command type.   */
