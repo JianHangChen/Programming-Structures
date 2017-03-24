@@ -27,9 +27,9 @@
 enum { FALSE = 0, TRUE };
 
 
-char id[MAX_REGISTRATION][MAX_NUM_ID_CHARS] = {};
-char name[MAX_REGISTRATION][MAX_NUM_NAME_CHARS] = {};
-int purchase[MAX_REGISTRATION][MAX_NUM_DIGITS] = {};
+char id[MAX_REGISTRATION][MAX_NUM_ID_CHARS] = {0};
+char name[MAX_REGISTRATION][MAX_NUM_NAME_CHARS] = {0};
+int purchase[MAX_REGISTRATION][MAX_NUM_DIGITS] = {0};
 
 int reg_no = 0;
 
@@ -120,21 +120,6 @@ char getValid_c(){
         return c;
     }
 }
-
-/*--------------------------------------------------------------------*/
-/* Check the input c is 'i' or 'n' or 'p'                             */
-/* Input: c                                                           */
-/* Return value: TRUE(valid) or FALSE(invalid)                        */
-/*--------------------------------------------------------------------*/
-int is_inp(c){
-    if(c == 'i' || c == 'n' || c == 'p'){
-        return TRUE;
-    } else {
-        return FALSE;
-    }
-
-}
-
 
 
 
