@@ -1,3 +1,0 @@
-reg -i ID -n NAME -p 5555555555
-reg -i ID -p 0 -n NAME
-reg -p 600062 -n NAME -i ID
