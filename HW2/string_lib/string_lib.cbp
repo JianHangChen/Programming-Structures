@@ -31,13 +31,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="sgrep.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="str.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="str.h" />
+		<Unit filename="test.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<envvars />

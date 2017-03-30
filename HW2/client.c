@@ -18,7 +18,7 @@ void
 TestStrCopy()
 {
   const char str1[] = "test StrCopy";
-  const char str2[] = 
+  const char str2[] =
     "test StrCopy with Null\0 Following character "
     "should not be printed";
   const char str_empty[] = "";
@@ -61,7 +61,7 @@ TestStrCopy()
   return;
 }
 /*------------------------------------------------------------------*/
-void 
+void
 TestStrGetLength()
 {
   const char str1[] = "12345678901234567890";
@@ -77,7 +77,7 @@ TestStrGetLength()
   printf("Test1:\n");
   res1 = StrGetLength(str1);
   res2 = strlen(str1);
-  
+
   PRINT_RESULT(res1 == res2);
   printf("Your     Answer: [%d]\n", (int)res1);
   printf("String.h Answer: [%d]\n", (int)res2);
@@ -116,7 +116,7 @@ TestStrSearch()
 	 "===========================\n");
 
   /* Test1: Normal Haystack & Needle */
-  printf("Test1:\n");  
+  printf("Test1:\n");
   res1 = StrSearch(str1, "Str");
   res2 = strstr(str1, "Str");
 
@@ -125,7 +125,7 @@ TestStrSearch()
   printf("String.h Answer: [%s]\n", res2);
 
   /* Test2: Normal Haystack & Needle with space */
-  printf("\nTest2:\n");    
+  printf("\nTest2:\n");
   res1 = StrSearch(str2, " with");
   res2 = strstr(str2, " with");
 
@@ -134,7 +134,7 @@ TestStrSearch()
   printf("String.h Answer: [%s]\n", res2);
 
   /* Test3: Normal Haystack with Null & Needle (after NULL) */
-  printf("\nTest3:\n");    
+  printf("\nTest3:\n");
   res1 = StrSearch(str2, "should");
   res2 = strstr(str2, "should");
 
@@ -143,22 +143,22 @@ TestStrSearch()
   printf("String.h Answer: [%s]\n", res2);
 
   /* Test4: Normal Haystack with Null & Needle (no answer) */
-  printf("\nTest4:\n");    
+  printf("\nTest4:\n");
   res1 = StrSearch(str2, "should");
   res2 = strstr(str2, "should");
 
   PRINT_RESULT((res1 == NULL) && (res2 == NULL));
   printf("Your     Answer: [%s]\n", res1);
-  printf("String.h Answer: [%s]\n", res2); 
+  printf("String.h Answer: [%s]\n", res2);
 
   /* Test5: Normal Haystack with Null & Needle (empty string) */
-  printf("\nTest5:\n");    
+  printf("\nTest5:\n");
   res1 = StrSearch(str2, str_empty);
   res2 = strstr(str2, str_empty);
 
   PRINT_RESULT((strcmp(res1, res2) == 0));
   printf("Your     Answer: [%s]\n", res1);
-  printf("String.h Answer: [%s]\n", res2); 
+  printf("String.h Answer: [%s]\n", res2);
 
   return;
 }
@@ -169,11 +169,11 @@ TestStrCompare()
   char str[] = "TestCompare";
   char case_str[] = "testcompare";
   int res1, res2;
-  
+
   printf("===========================\n"
 	 "Test StrCompare\n"
 	 "===========================\n");
-  
+
   /* Test1: same length, same string */
   printf("Test1:\n");
   res1 = StrCompare(str, "TestCompare");
@@ -182,7 +182,7 @@ TestStrCompare()
   PRINT_RESULT((res1 * res2 < 0) || (res1 == 0 && res2 == 0));
   printf("Your     Answer: [%d]\n", res1);
   printf("String.h Answer: [%d]\n", res2);
- 
+
   /* Test2: same length, check case-sensitive */
   printf("\nTest2:\n");
   res1 = StrCompare(case_str, "TestCompare");
@@ -200,7 +200,7 @@ TestStrCompare()
   PRINT_RESULT((res1 * res2 > 0) || (res1 == 0 && res2 == 0));
   printf("Your     Answer: [%d]\n", res1);
   printf("String.h Answer: [%d]\n", res2);
-  
+
   /* Test4: different length  */
   printf("\nTest4:\n");
   res1 = StrCompare(str, "TestCompareLong");
@@ -218,21 +218,21 @@ TestStrCompare()
   PRINT_RESULT((res1 * res2 > 0) || (res1 == 0 && res2 == 0));
   printf("Your     Answer: [%d]\n", res1);
   printf("String.h Answer: [%d]\n", res2);
-  
+
   return;
 }
 /*------------------------------------------------------------------*/
-void 
+void
 TestStrConcat()
 {
   char str1[] = "test StrConcat";
-  char str2[] = 
+  char str2[] =
     "test StrConcat with Null\0 Following character "
     "should not be added";
   char str_empty[] = "";
 
   char dest1[MAX_SIZE] = "Previous dest: ";
-  char dest2[MAX_SIZE] = "Previous dest: "; 
+  char dest2[MAX_SIZE] = "Previous dest: ";
   char dest3[MAX_SIZE] = "Previous dest: ";
   char dest4[MAX_SIZE] = "";
   char answer1[MAX_SIZE] = "Previous dest: ";
@@ -287,23 +287,23 @@ TestStrConcat()
 /* PrintUsage()
    print out the usage of the test client                           */
 /*------------------------------------------------------------------*/
-void 
-PrintUsage(char* argv0) 
+void
+PrintUsage(char* argv0)
 {
   printf("Test Client Usage:\n");
   printf("%s [StrGetLength|StrCopy|StrCompare|StrSearch|StrConcat|"
-	 "\n", 
+	 "\n",
 	 argv0);
 }
 /*------------------------------------------------------------------*/
-int 
+int
 main(int argc, char *argv[])
 {
   if (argc != 2) {
     PrintUsage(argv[0]);
     return (EXIT_FAILURE);
   }
-  
+
   if (strcmp(argv[1], STRCOPY_STR) == 0)
       TestStrCopy();
 
@@ -320,5 +320,5 @@ main(int argc, char *argv[])
     TestStrConcat();
 
   return 0;
-  
+
 }

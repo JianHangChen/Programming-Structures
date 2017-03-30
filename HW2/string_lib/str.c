@@ -1,7 +1,17 @@
-
+#include <assert.h> /* to use assert() */
+#include <stdio.h>
 #include "str.h"
 
+/* Your task is:
+   1. Rewrite the body of "Part 1" functions - remove the current
+      body that simply calls the corresponding C standard library
+      function.
+   2. Write appropriate comment per each function
+*/
 
+
+/* Part 1 */
+/*------------------------------------------------------------------------*/
 /*NAME
        StrGetLength - calculate the length of a string
 
@@ -40,20 +50,21 @@ size_t StrGetLength1(const char pcSrc[]) // Use array notation
 }
 */
 
+/*------------------------------------------------------------------------*/
 
 /*
 NAME
-       strcpy, strncpy - copy a string
+       StrCopy, strncpy - copy a string
 
 SYNOPSIS
        #include <str.h>
 
-       char *strcpy(char *dest, const char *src);
+       char *StrCopy(char *dest, const char *src);
 
        char *strncpy(char *dest, const char *src, size_t n);
 
 DESCRIPTION
-       The  strcpy()  function copies the string pointed to by src, including the terminating
+       The  StrCopy()  function copies the string pointed to by src, including the terminating
        null byte ('\0'), to the buffer pointed to by dest.  The strings may not overlap,  and
        the destination string dest must be large enough to receive the copy.
 
@@ -80,7 +91,7 @@ DESCRIPTION
            }
 
 RETURN VALUE
-       The strcpy() and strncpy() functions return a pointer to the destination string dest.
+       The StrCopy() and strncpy() functions return a pointer to the destination string dest.
 
 NOTES
        Some programmers consider strncpy() to be inefficient and error prone.   If  the
@@ -107,24 +118,23 @@ BUGS
 
 
 char *StrCopy(char *pcDest, const char* pcSrc){
-    size_t n = StrGetLength(pcSrc)+1;
-
+    size_t n = StrGetLength(pcSrc) + 1;
     size_t i;
 
+    // check if pcSrc is empty
+    // check if pcDest has enough space?!!!!
     for (i = 0; i < n ; i++)
         pcDest[i] = pcSrc[i];
-// && pcSrc[i] != '\0'
-//    for ( ; i < n; i++)
-//        pcDest[i] = '\0';
-    return pcDest;
 
+    return pcDest;
+//return strcpy(pcDest, pcSrc);
 }
 
 
-
+/*------------------------------------------------------------------------*/
 
 /*NAME
-       strcmp, strncmp - compare two strings
+       StrCompare, strncmp - compare two strings
 
 SYNOPSIS
        #include <str.h>
@@ -147,73 +157,88 @@ RETURN VALUE
        than  zero  if  pcS1  (or  the first n bytes thereof) is found, respectively, to be less
        than, to match, or be greater than pcS2.
 
-
-
 */
 int StrCompare(const char* pcS1, const char* pcS2){
+    size_t n1 = StrGetLength(pcS1)+1;
+    size_t n2 = StrGetLength(pcS2)+1;
+    size_t i;
+
+    for (i = 0; (i < n1) && (i < n2); i++){
+        if (pcS1[i] < pcS2[i]){
+            return -1;
+        }
+        if (pcS1[i] > pcS2[i]){
+            return 1;
+        }
+    }
+
     return 0;
+
+//  return strcmp(pcS1, pcS2);
 }
 
-
+/*------------------------------------------------------------------------*/
 /*NAME
-       strstr, strcasestr - locate a substring
+       StrSearch, strcasestr - locate a substring
 
 SYNOPSIS
-       #include <string.h>
+       #include <str.h>
 
-       char *strstr(const char *haystack, const char *needle);
-
-       #define _GNU_SOURCE         // See feature_test_macros(7)
-
-       #include <string.h>
+       char *StrSearch(const char *haystack, const char *needle);
 
        char *strcasestr(const char *haystack, const char *needle);
 
 DESCRIPTION
-       The strstr() function finds the first occurrence of the substring needle in the string
+       The StrSearch() function finds the first occurrence of the substring needle in the string
        haystack.  The terminating null bytes ('\0') are not compared.
 
-       The strcasestr() function is like strstr(), but ignores the case of both arguments.
+       The strcasestr() function is like StrSearch(), but ignores the case of both arguments.
 
 RETURN VALUE
        These functions return a pointer to the beginning of the substring,  or  NULL  if  the
-       substring is not found.
+       substring is not found.*/
 
-CONFORMING TO
-       The  strstr()  function  conforms to C89 and C99.  The strcasestr() function is a non‐
-       standard extension.
-
-BUGS
-       Early versions of Linux libc (like 4.5.26) would not allow an  empty  needle  argument
-       for  strstr().   Later versions (like 4.6.27) work correctly, and return haystack when
-       needle is empty.
-
-*/
 char *StrSearch(const char* pcHaystack, const char *pcNeedle){
-       const char* pc;
-       pc = pcHaystack;
+    const char* pc;
+    pc = pcHaystack;
+    if(pc == NULL){
+        return NULL;
+    }
+    while( *pc != '\0' ){
+        int i = 0;
+        for( i ; *(pcNeedle+i) != '\0' && *(pc+i) == *(pcNeedle+i) ; i++){
+        }
+        if (*(pcNeedle+i) == '\0'){
+            return (char*)pc;
+        } else{
+            pc++;
+        }
+
+    }
+
+    return NULL;
 
 
-       return (char*)pc;
+//  return strstr(pcHaystack, pcNeedle);
 }
 
-
+/*------------------------------------------------------------------------*/
 
 /*
 NAME
-       strcat, strncat - concatenate two strings
+       StrConcat, strncat - concatenate two strings
 
 SYNOPSIS
-       #include <string.h>
+       #include <str.h>
 
-       char *strcat(char *dest, const char *src);
+       char *StrConcat(char *pcDest, const char* pcSrc);
 
        char *strncat(char *dest, const char *src, size_t n);
 
 DESCRIPTION
-       The  strcat()  function  appends  the src string to the dest string, overwriting the
-       terminating null byte ('\0') at the end of dest, and then adds  a  terminating  null
-       byte.   The  strings may not overlap, and the dest string must have enough space for
+       The  StrConcat()  function  appends  the pcSrc string to the pcDest string, overwriting the
+       terminating null byte ('\0') at the end of pcDest, and then adds  a  terminating  null
+       byte.   The  strings may not overlap, and the pcDest string must have enough space for
        the result.
 
        The strncat() function is similar, except that
@@ -222,7 +247,7 @@ DESCRIPTION
 
        *  src does not need to be null-terminated if it contains n or more characters.
 
-       As with strcat(), the resulting string in dest is always null-terminated.
+       As with StrConcat(), the resulting string in pcDest is always null-terminated.
 
        If src contains n or more characters, strncat() writes n+1  characters  to  dest  (n
        from  src  plus  the terminating null byte).  Therefore, the size of dest must be at
@@ -234,5 +259,20 @@ RETURN VALUE
 
 */
 char *StrConcat(char *pcDest, const char* pcSrc){
+    assert(pcDest);
+    assert(pcSrc);
+    char *pc = pcDest;
+    while(*pc != '\0'){
+        pc++;
+    }
+    while(*pcSrc != '\0'){
+        *pc = *pcSrc;
+        pcSrc++;
+        pc++;
+    }
+
+    *pc = '\0';
+
     return pcDest;
+//  return strcat(pcDest, pcSrc);
 }
