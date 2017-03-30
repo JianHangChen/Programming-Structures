@@ -1,6 +1,9 @@
 #ifndef _STRING_H_
 #define _STRING_H_
 #include <unistd.h> /* for typedef of size_t */
+#include <stdio.h>
+#include <assert.h>
+//stdlib.h???
 
 /* Part 1 */
 size_t StrGetLength(const char* pcSrc);

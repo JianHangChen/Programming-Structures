@@ -1,32 +1,23 @@
 
-#include <str.h>
+#include "str.h"
 
 
 /*NAME
-       strlen - calculate the length of a string
+       StrGetLength - calculate the length of a string
 
 SYNOPSIS
-       #include <string.h>
+       #include "str.h"
 
-       size_t strlen(const char *s);
+       size_t StrGetLength(const char* pcSrc);
 
 DESCRIPTION
-       The strlen() function calculates the length of the string s, excluding the terminating
+       The StrGetLength() function calculates the length of the string s, excluding the terminating
        null byte ('\0').
 
 RETURN VALUE
        The strlen() function returns the number of characters in s.
 
-CONFORMING TO
-       SVr4, 4.3BSD, C89, C99.
 
-SEE ALSO
-       string(3), strnlen(3), wcslen(3), wcsnlen(3)
-
-COLOPHON
-       This page is part of release 3.35 of the Linux man-pages project.   A  description  of
-       the   project,   and   information   about   reporting   bugs,   can   be   found   at
-       http://man7.org/linux/man-pages/.
 */
 
 size_t StrGetLength(const char* pcSrc){ /* Use pointer notation */
@@ -38,8 +29,8 @@ size_t StrGetLength(const char* pcSrc){ /* Use pointer notation */
    return (size_t)(pcEnd - pcSrc);
 }
 
-
-size_t StrGetLength1(const char pcSrc[]) /* Use array notation */
+/*
+size_t StrGetLength1(const char pcSrc[]) // Use array notation
 {
    size_t uiLength = 0U;
    assert(pcSrc);  //assert(pcSrc != NULL);  / NULL, 0, FALSE are identical
@@ -47,6 +38,7 @@ size_t StrGetLength1(const char pcSrc[]) /* Use array notation */
       uiLength++;
    return uiLength;
 }
+*/
 
 
 /*
@@ -54,7 +46,7 @@ NAME
        strcpy, strncpy - copy a string
 
 SYNOPSIS
-       #include <string.h>
+       #include <str.h>
 
        char *strcpy(char *dest, const char *src);
 
@@ -90,9 +82,6 @@ DESCRIPTION
 RETURN VALUE
        The strcpy() and strncpy() functions return a pointer to the destination string dest.
 
-CONFORMING TO
-       SVr4, 4.3BSD, C89, C99.
-
 NOTES
        Some programmers consider strncpy() to be inefficient and error prone.   If  the
        programmer  knows  (i.e.,  includes code to test!)  that the size of dest is greater
@@ -114,16 +103,20 @@ BUGS
        This may be unnecessary if you can show that overflow is impossible, but be careful:
         programs  can get changed over time, in ways that may make the impossible possible.
 
-SEE ALSO
-       bcopy(3),   memccpy(3),   memcpy(3),  memmove(3),  stpcpy(3),  stpncpy(3),  strdup(3),
-       string(3), wcscpy(3), wcsncpy(3)
+*/
 
-COLOPHON
-       This page is part of release 3.35 of the Linux man-pages project.   A  description  of
-       the   project,   and   information   about   reporting   bugs,   can   be   found   at
-       http://man7.org/linux/man-pages/.*/
 
 char *StrCopy(char *pcDest, const char* pcSrc){
+    size_t n = StrGetLength(pcSrc)+1;
+
+    size_t i;
+
+    for (i = 0; i < n ; i++)
+        pcDest[i] = pcSrc[i];
+// && pcSrc[i] != '\0'
+//    for ( ; i < n; i++)
+//        pcDest[i] = '\0';
+    return pcDest;
 
 }
 
@@ -134,39 +127,31 @@ char *StrCopy(char *pcDest, const char* pcSrc){
        strcmp, strncmp - compare two strings
 
 SYNOPSIS
-       #include <string.h>
+       #include <str.h>
 
-       int strcmp(const char *s1, const char *s2);
+       int StrCompare(const char* pcS1, const char* pcS2);
+
 
        int strncmp(const char *s1, const char *s2, size_t n);
 
 DESCRIPTION
-       The  strcmp() function compares the two strings s1 and s2.  It returns an integer less
-       than, equal to, or greater than zero if s1 is found, respectively, to be less than, to
-       match, or be greater than s2.
+       The  StrCompare() function compares the two strings pcS1 and pcS2.  It returns an integer less
+       than, equal to, or greater than zero if pcS1 is found, respectively, to be less than, to
+       match, or be greater than pcS2.
 
        The strncmp() function is similar, except it only compares the first (at most) n
-       characters of s1 and s2.
+       characters of pcS1 and pcS2.
 
 RETURN VALUE
-       The strcmp() and strncmp() functions return an integer less than, equal to, or greater
-       than  zero  if  s1  (or  the first n bytes thereof) is found, respectively, to be less
-       than, to match, or be greater than s2.
+       The StrCompare() and strncmp() functions return an integer less than, equal to, or greater
+       than  zero  if  pcS1  (or  the first n bytes thereof) is found, respectively, to be less
+       than, to match, or be greater than pcS2.
 
-CONFORMING TO
-       SVr4, 4.3BSD, C89, C99.
 
-SEE ALSO
-       bcmp(3), memcmp(3),  strcasecmp(3),  strcoll(3),  string(3),  strncasecmp(3),
-       strverscmp(3), wcscmp(3), wcsncmp(3)
 
-COLOPHON
-       This  page  is  part of release 3.35 of the Linux man-pages project.  A description of
-       the   project,   and   information   about   reporting   bugs,   can   be   found   at
-       http://man7.org/linux/man-pages/.
 */
 int StrCompare(const char* pcS1, const char* pcS2){
-
+    return 0;
 }
 
 
@@ -203,14 +188,6 @@ BUGS
        for  strstr().   Later versions (like 4.6.27) work correctly, and return haystack when
        needle is empty.
 
-SEE ALSO
-       index(3),  memchr(3),  rindex(3),  strcasecmp(3),  strchr(3),  string(3),  strpbrk(3),
-       strsep(3), strspn(3), strtok(3), wcsstr(3)
-
-COLOPHON
-       This  page  is  part of release 3.35 of the Linux man-pages project.  A description of
-       the   project,   and   information   about   reporting   bugs,   can   be   found   at
-       http://man7.org/linux/man-pages/.
 */
 char *StrSearch(const char* pcHaystack, const char *pcNeedle){
        const char* pc;
@@ -255,16 +232,7 @@ DESCRIPTION
 RETURN VALUE
        The strcat() and strncat() functions return a pointer to the resulting string dest.
 
-CONFORMING TO
-       SVr4, 4.3BSD, C89, C99.
-
-SEE ALSO
-       bcopy(3),  memccpy(3),  memcpy(3),  strcpy(3),  string(3),  strncpy(3),   wcscat(3),
-       wcsncat(3)
-
-COLOPHON
-       This  page is part of release 3.35 of the Linux man-pages project.  A description of
-       the  project,  and   information   about   reporting   bugs,   can   be   found   at
-       http://man7.org/linux/man-pages/.
 */
-char *StrSearch(const char* pcHaystack, const char *pcNeedle);
+char *StrConcat(char *pcDest, const char* pcSrc){
+    return pcDest;
+}
