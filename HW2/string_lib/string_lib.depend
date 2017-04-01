@@ -1,27 +1,28 @@
 # depslib dependency file v1.0
-1490615143 source:d:\my sources\desktop\ee209 structure programing\hw\hw2\string_lib\sgrep.c
+1491051792 source:d:\my sources\desktop\ee209 structure programing\hw\hw2\string_lib\sgrep.c
+	"str.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<unistd.h>
-	"str.h"
+	<assert.h>
 
-1490872891 d:\my sources\desktop\ee209 structure programing\hw\hw2\string_lib\str.h
+1491047398 d:\my sources\desktop\ee209 structure programing\hw\hw2\string_lib\str.h
 	<unistd.h>
 
-1490900957 source:d:\my sources\desktop\ee209 structure programing\hw\hw2\string_lib\str.c
+1491045451 source:d:\my sources\desktop\ee209 structure programing\hw\hw2\string_lib\str.c
+	"str.h"
 	<assert.h>
 	<stdio.h>
 	"str.h"
-	"str.h"
 	<str.h>
 	<str.h>
 	<str.h>
 	<str.h>
 
-1490900803 source:d:\my sources\desktop\ee209 structure programing\hw\hw2\string_lib\test.c
+1491045114 source:d:\my sources\desktop\ee209 structure programing\hw\hw2\string_lib\test.c
+	"str.h"
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
-	"str.h"
 

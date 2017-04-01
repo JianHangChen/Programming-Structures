@@ -1,7 +1,7 @@
+#include "str.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "str.h"
 
 #define MAX_SIZE 100
 
@@ -288,19 +288,33 @@ TestStrConcat()
 /* PrintUsage()
    print out the usage of the test client                           */
 /*------------------------------------------------------------------*/
-void
-PrintUsage(char* argv0)
-{
-  printf("Test Client Usage:\n");
-  printf("%s [StrGetLength|StrCopy|StrCompare|StrSearch|StrConcat|"
-	 "\n",
-	 argv0);
-}
+//void
+//PrintUsage(char* argv0)
+//{
+//  printf("Test Client Usage:\n");
+//  printf("%s [StrGetLength|StrCopy|StrCompare|StrSearch|StrConcat|"
+//	 "\n",
+//	 argv0);
+//}
 /*------------------------------------------------------------------*/
-
+//
 int
 main(void)
 {
+    const char* filename1 = "D:\\My Sources\\Desktop\\EE209 structure programing\\HW\\HW2\\google.txt";
+    const char* filename2 = "D:\\My Sources\\Desktop\\EE209 structure programing\\HW\\HW2\\microsoft.txt";
+    //char* pcString1 = "Google";
+    //char* pcString2 = "Microsoft";
+
+//    char array1[100] ="Google";
+//    char array2[]="Michael";
+//    char* pc;
+//    pc = StrNConcat(array1,pcString2,5);
+//    printf("%s\n",pc);
+//    DoReplace(pcString1, pcString2);
+    DoDiff(filename1,filename2);
+
+//DoFind(pcSearch);
 //    char pcHaystack[] = "";
 //    char pcKey[] = "  ds";
 //    char* position;
@@ -308,7 +322,7 @@ main(void)
 //    printf("pcHaystack start char: %c\n", *pcHaystack);
 //    printf("key position char in pcHaystack: %c\n", *position);
 
-TestStrConcat();
+//TestStrConcat();
  //TestStrSearch();
 
 //TestStrCompare();

@@ -1,6 +1,7 @@
+#include "str.h"
 #include <assert.h> /* to use assert() */
 #include <stdio.h>
-#include "str.h"
+
 
 /* Your task is:
    1. Rewrite the body of "Part 1" functions - remove the current
@@ -8,7 +9,6 @@
       function.
    2. Write appropriate comment per each function
 */
-
 
 /* Part 1 */
 /*------------------------------------------------------------------------*/
@@ -26,8 +26,6 @@ DESCRIPTION
 
 RETURN VALUE
        The strlen() function returns the number of characters in s.
-
-
 */
 
 size_t StrGetLength(const char* pcSrc){ /* Use pointer notation */
@@ -173,7 +171,6 @@ int StrCompare(const char* pcS1, const char* pcS2){
     }
 
     return 0;
-
 //  return strcmp(pcS1, pcS2);
 }
 
@@ -201,7 +198,7 @@ RETURN VALUE
 char *StrSearch(const char* pcHaystack, const char *pcNeedle){
     const char* pc;
     pc = pcHaystack;
-    if(pc == NULL){
+    if(*pc == '\0'){
         return NULL;
     }
     while( *pc != '\0' ){
@@ -217,8 +214,6 @@ char *StrSearch(const char* pcHaystack, const char *pcNeedle){
     }
 
     return NULL;
-
-
 //  return strstr(pcHaystack, pcNeedle);
 }
 
@@ -272,7 +267,6 @@ char *StrConcat(char *pcDest, const char* pcSrc){
     }
 
     *pc = '\0';
-
     return pcDest;
 //  return strcat(pcDest, pcSrc);
 }
