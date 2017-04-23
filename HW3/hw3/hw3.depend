@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1492922837 source:d:\my sources\desktop\ee209 structure programing\hw\hw3\customer_manager1.c
+	<assert.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"customer_manager.h"
+
+1492837312 d:\my sources\desktop\ee209 structure programing\hw\hw3\customer_manager.h
+
+1492854755 source:d:\my sources\desktop\ee209 structure programing\hw\hw3\testclient.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<sys/time.h>
+	"customer_manager.h"
+
