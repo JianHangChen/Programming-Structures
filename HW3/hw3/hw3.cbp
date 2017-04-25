@@ -32,10 +32,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="../customer_manager.h" />
-		<Unit filename="../customer_manager1.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../testclient.c">
+		<Unit filename="../customer_manager2.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

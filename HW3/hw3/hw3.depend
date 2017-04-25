@@ -16,3 +16,11 @@
 	<sys/time.h>
 	"customer_manager.h"
 
+1493056118 source:d:\my sources\desktop\ee209 structure programing\hw\hw3\customer_manager2.c
+	<assert.h>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<stdbool.h>
+	"customer_manager.h"
+
