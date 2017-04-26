@@ -43,7 +43,7 @@ struct DB {
 
 struct HashTable {
    struct UserInfo **array;
-   int curArrSize;
+//   int curArrSize;
 };
 
 
@@ -58,36 +58,110 @@ struct HashTable {
 //   return (int)(uiHash & (unsigned int)(iBucketCount-1) );
 //}
 
+//original one
+//3600ms 1000000 registers 
+// static unsigned int uihash(const char *pcKey)
+// {
+//   int i;
+//   unsigned int uiHash = 0U;
+//   for (i = 0; pcKey[i] != '\0'; i++)
+//      uiHash = uiHash * (unsigned int)HASH_MULTIPLIER + (unsigned int)pcKey[i];
+//   return uiHash;
+// }
 
-static unsigned int uihash(const char *pcKey)
+//DJB Hash Function
+//similar
+static unsigned int uihash(const char *str)
 {
-   int i;
-   unsigned int uiHash = 0U;
-   for (i = 0; pcKey[i] != '\0'; i++)
-      uiHash = uiHash * (unsigned int)HASH_MULTIPLIER + (unsigned int)pcKey[i];
-   return uiHash;
+   unsigned int hash = 5381;
+   while ( *str )
+       hash = ((hash << 5) + hash) + (*str++); /* hash * 33 + c */
+   return hash;
 }
 
+// BKDR Hash Function
+// similar
+// static unsigned int uihash(const char *str)
+// {
+//     //unsigned int seed = 31; // 31 131 1313 13131 131313 etc..
+//     unsigned int hash = 0;
+
+//     while (*str)
+//     {
+//         hash = (hash << 7) + hash +hash+hash + (*str++);
+//         // hash = hash * seed + (*str++);
+//     }
+
+//     return hash;
+// }
+
+////SDBMHash
+// very bad
+// static unsigned int uihash(const char *str)
+// {
+//    unsigned int hash = 0;
+
+//    while (*str)
+//    {
+//        // equivalent to: hash = 65599*hash + (*str++);
+//        hash = (*str++) + (hash << 6) + (hash << 16) - hash;
+//    }
+
+//    return hash;
+// }
+
+// RS Hash Function
+// worse
+// static unsigned int uihash(const char *str)
+// {
+//    unsigned int b = 378551;
+//    unsigned int a = 63689;
+//    unsigned int hash = 0;
+
+//    while (*str)
+//    {
+//        hash = hash * a + (*str++);
+//        a *= b;
+//    }
+
+//    return hash;
+// }
+
+// JS Hash Function
+//worse
+// static unsigned int uihash(const char *str)
+// {
+//    unsigned int hash = 1315423911;
+
+//    while (*str)
+//    {
+//        hash ^= ((hash << 5) + (*str++) + (hash >> 2));
+//    }
+
+//    return hash;
+// }
 
 
-/*
-static int DB_isValid(DB_T d)
-{
-    // Length cannot be negative
-    if (d->curArrSize < 0)
-        return 0;
+// AP Hash Function
+// worse
+// static unsigned int uihash(const char *str)
+// {
+//    unsigned int hash = 0;
+//    int i;
 
-    // items cannot be larger than Array length
-    if (d->numItems > d->curArrSize)
-        return 0;
-    // pArray should point to valid memory location
-    if (d->pArray == NULL)
-        return 0;
-
-    return 1; // Validation SUCCESS
-}
-*/
-
+//    for (i=0; *str; i++)
+//    {
+//        if ((i & 1) == 0)
+//        {
+//            hash ^= ((hash << 7) ^ (*str++) ^ (hash >> 3));
+//        }
+//        else
+//        {
+//            hash ^= (~((hash << 11) ^ (*str++) ^ (hash >> 5)));
+//        }
+//    }
+//    return hash;
+// }
 
 static int name_search(HashTable_T t, const char *key, int iBuketCount, unsigned int* h)
 {
@@ -120,8 +194,8 @@ static int id_search(HashTable_T t, const char *key, int iBuketCount, unsigned i
 static inline HashTable_T Table_create(int size) {
    HashTable_T t;
    t = (HashTable_T)calloc(1, sizeof(struct HashTable));
-   t-> curArrSize = size;
-   t->array = (struct UserInfo**)calloc(size,sizeof(struct UserInfo*)); //don't forget to free!!!
+//   t-> curArrSize = size;
+   t-> array = (struct UserInfo**)calloc(size,sizeof(struct UserInfo*)); //don't forget to free!!!
    return t;
 }
 
@@ -207,10 +281,8 @@ static int DB_grow(DB_T d)  /* Expand HashTable  if full*/
     }
 
     d->ht_id->array = pIdArray;
-    d->ht_id->curArrSize = iNewLength;
     d->ht_name->array = pNameArray;
-    d->ht_name->curArrSize = iNewLength;
-
+    
     d->curArrSize = iNewLength;
 
     //printf("grow succeed\n");
@@ -220,8 +292,6 @@ static int DB_grow(DB_T d)  /* Expand HashTable  if full*/
 
 static int DB_add(DB_T d,const char *id, const char *name, int purchase,
                   unsigned int h_id,unsigned int h_name){
-
-
 
 
    struct UserInfo* p = (struct UserInfo*)malloc(sizeof(struct UserInfo));
@@ -380,7 +450,6 @@ UnregisterCustomerByName(DB_T d, const char *name)
     //assert(d != NULL);/* Check d points to a valid memory location */
     //assert(DB_isValid(d)); /* Check d is valid dynamic array */
 
-
     struct UserInfo* p1,*p2;
     struct UserInfo* p_last_id,*p_last_name;
 
@@ -388,8 +457,6 @@ UnregisterCustomerByName(DB_T d, const char *name)
     int find_name=false;
 
     //find the last name, point it to next name
-
-
     unsigned int h_name = uihash(name);
     unsigned int hash_name = (h_name)&(d->curArrSize-1);
     p2 = d->ht_name->array[hash_name];
